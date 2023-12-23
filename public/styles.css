@@ -29,6 +29,9 @@ body {
     height: 100%;
     overflow: hidden;
     background-color: var(--cl-background-tint);
+
+    padding: 0;
+    margin: 0;
 }
 
 
