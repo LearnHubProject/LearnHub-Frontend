@@ -2,6 +2,9 @@
 
 export const ROUTES = [
     '/',
+    '/about',
+    '/privacy',
+    '/tos',
     '/overview'
 ] as const;
 
