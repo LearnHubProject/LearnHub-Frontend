@@ -1,8 +1,8 @@
 <script lang="ts">
 
-    import Footer from "./Footer.svelte";
+    import Footer from "../../components/Footer.svelte";
     import TextInput from "./TextInput.svelte";
-    import Blobs from "./Blobs.svelte";
+    import Blobs from "../../components/Blobs.svelte";
 
     function login(): void {
         console.log("logging in");
