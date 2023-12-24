@@ -20,7 +20,7 @@
 
         <button on:click={togglePassVisibility}>
         
-            <img alt="eye" src="/eye.svg" />
+            <img alt="eye" src={passwordVisible ? 'visibility_off.svg' : './visibility.svg'} />
         
         </button>
 
@@ -55,6 +55,7 @@
         margin: 12px;
         border: none;
         border-radius: 4px;
+        cursor: pointer;
     }
 
 </style>
