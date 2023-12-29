@@ -6,6 +6,10 @@
 
 </script>
 
+<svelte:head>
+    <title>LearnHub - Tos</title>
+</svelte:head>
+
 <main>
 
     <div>
@@ -58,7 +62,7 @@
         max-width: 30%;
         padding: 2em;
         margin: auto;
-        border: 1px solid black;
+        border: 1px solid var(--cl-secondary);
         border-radius: 1em;
         background-color: var(--cl-surface);
         z-index: 1;

@@ -10,6 +10,10 @@
 
 </script>
 
+<svelte:head>
+    <title>LearnHub - Login</title>
+</svelte:head>
+
 <main>
 
     <div>
