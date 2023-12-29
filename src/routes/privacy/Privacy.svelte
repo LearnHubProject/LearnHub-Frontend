@@ -12,7 +12,7 @@
 
 <main>
 
-    <div>
+    <div class="shadow">
 
         <section>
             <h1>Privacy Policy</h1>
@@ -62,7 +62,6 @@
         max-width: 30%;
         padding: 2em;
         margin: auto;
-        border: 1px solid var(--cl-secondary);
         border-radius: 1em;
         background-color: var(--cl-surface);
         z-index: 1;
