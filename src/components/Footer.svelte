@@ -15,7 +15,7 @@
 
     <span class="right">
 
-        <img alt="GH" src="./github-mark 1.svg" />
+        <img alt="GH" src="./icons/github-mark 1.svg" />
         <a href="">Source Code</a>
 
     </span>

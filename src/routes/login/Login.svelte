@@ -18,7 +18,7 @@
 
     <div>
 
-        <img alt="LearnHub Logo" src="./logo.svg" />
+        <img src="./logo.svg" alt="LearnHub Logo" />
 
         <h1>Welcome!</h1>
 

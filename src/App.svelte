@@ -17,7 +17,8 @@
     import AdminOverview from "./routes/admin/overview/AdminOverview.svelte"
 
     // const route = routeApp();
-    const route = '/tos';
+    // const route = '/';
+    const route = '/overview';
     const role: UserRole = 'student';
 
 </script>

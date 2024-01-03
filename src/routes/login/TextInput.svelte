@@ -20,7 +20,7 @@
 
         <button on:click={togglePassVisibility}>
         
-            <img alt="eye" src={passwordVisible ? 'visibility_off.svg' : './visibility.svg'} />
+            <img src={passwordVisible ? './icons/visibility_off.svg' : './icons/visibility.svg'} alt="visible" />
         
         </button>
 
@@ -31,16 +31,18 @@
 <style>
 
     main {
-        display: flex;
+        display: grid;
+        grid-template-columns: 1fr max-content;
+        grid-template-rows: 1fr;
+        align-items: center;
         width: 380px;
         height: fit-content;
-        background-color: rgb(33, 33, 33, .08); /* should be a variable! */
+        background-color: rgb(237, 234, 238);
         border-radius: 4px;
         margin: 7px 0 7px 0;
     }
     
     input {
-        width: 100%;
         padding: 16px 12px 14px 14px;
         background-color: transparent;
         font-size: 16px;
@@ -48,14 +50,9 @@
     }
 
     button {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        aspect-ratio: 1 / 1;
         margin: 12px;
-        border: none;
+        aspect-ratio: 1 / 1;
         border-radius: 4px;
-        cursor: pointer;
     }
 
 </style>
