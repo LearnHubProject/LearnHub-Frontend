@@ -90,13 +90,12 @@
         position: relative;
         display: flex;
         align-items: center;
-        width: 1068px;
         height: 94px;
         padding: 20px 2em 20px 2em;
         background-color: var(--cl-surface);
         box-sizing: border-box;
 
-        border: 2px dotted black;
+        /* border: 2px dotted black; */
     }
 
     .slot-wrapper {
