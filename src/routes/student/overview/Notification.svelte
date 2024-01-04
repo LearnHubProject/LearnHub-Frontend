@@ -30,14 +30,13 @@
         document.removeEventListener('click', closeDetailsMenuOnClickAnywhere);
     }
 
-    function toggleDetailsMenu(): void {
+    function toggleDetailsMenu(e: MouseEvent): void {
         showDetails = !showDetails;
 
         if (showDetails) {
-            // A timeout is needed since the click event of the button seems to trigger the document event right after this function returns
-            setTimeout(() => {
-                document.addEventListener('click', closeDetailsMenuOnClickAnywhere);
-            }, 10);
+            // Otherwise the event triggers the document immediately
+            e.stopPropagation();
+            document.addEventListener('click', closeDetailsMenuOnClickAnywhere);
         }
     }
 
@@ -52,7 +51,7 @@
 
 <main>
 
-    <div>
+    <div class="main-content">
         <div class="slot-wrapper">
             <slot />
         </div>
@@ -89,9 +88,7 @@
 
     main {
         position: relative;
-        display: grid;
-        grid-template-columns: 1fr min-content;
-        grid-template-rows: 1fr;
+        display: flex;
         align-items: center;
         width: 1068px;
         height: 94px;
@@ -103,7 +100,10 @@
     }
 
     .slot-wrapper {
-        width: 80px;
+        flex-basis: 3ch;
+        flex-shrink: 0;
+        color: var(--cl-high-emphasis);
+        font-size: 48px;
     }
 
     .details-menu-toggle {
@@ -111,21 +111,22 @@
         border-radius: 4px;
     }
 
-    div {
+    .main-content {
         display: flex;
         align-items: center;
+        flex-grow: 1;
         overflow: hidden;
     }
 
     section {
-        width: 100%;
+        flex-grow: 1;
     }
 
-    /* Doesn't work */
     h5,
     p {
         font-size: 20px;
         font-weight: normal;
+        /* Doesn't work */
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;

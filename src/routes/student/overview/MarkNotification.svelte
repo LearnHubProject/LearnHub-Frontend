@@ -22,13 +22,3 @@
     <span style="{important ? 'font-weight: bold;' : ''}">Et</span>
 
 </Notification>
-
-<style>
-
-    span {
-        color: var(--cl-high-emphasis);
-        text-align: center;
-        font-size: 48px;
-    }
-
-</style>

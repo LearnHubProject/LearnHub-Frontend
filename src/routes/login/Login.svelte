@@ -79,7 +79,7 @@
     }
 
     h1 {
-        color: black; /* should be changed */
+        color: var(--cl-high-emphasis);
         margin-bottom: 10px;
         font-size: 64px;
         font-weight: bold;
@@ -109,7 +109,7 @@
         border: none;
         border-radius: 4px;
         background-color: var(--cl-accent);
-        color: white;
+        color: var(--cl-background-tint);
         font-size: 16px;
         font-weight: bold;
         cursor: pointer;

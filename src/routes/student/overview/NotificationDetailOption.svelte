@@ -35,15 +35,15 @@
     }
 
     div {
-        display: flex;
         width: 33%;
+        display: flex;
         padding: 1em;
         justify-content: center;
         box-sizing: border-box;
     }
-
+    
     span {
-        width: 66%;
+        flex-grow: 1;
         margin: auto 0 auto 0;
         font-size: 20px;
         text-align: left;

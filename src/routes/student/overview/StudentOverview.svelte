@@ -12,11 +12,17 @@
 
     <DisciplinaryNote
         title="Example"
+        content="Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit, cumque nam provident tempore aspernatur illum aut itaque vero odit, perspiciatis, veritatis nulla? Omnis deleniti voluptatibus doloribus, numquam alias harum repellat."
+        notificationDetails={[
+            { label: "Details", icon: "./icons/details.svg" }
+        ]}
+    />
+
+    <DisciplinaryNote
+        title="Example"
         content="Just testin' stuff out"
         notificationDetails={[
-            { label: "option 1", icon: "./icons/visibility.svg" },
-            { label: "option 2", icon: "./icons/visibility_off.svg" },
-            { label: "option 3 djfhgdsjfbdsjkfh", icon: "./icons/github-mark 1.svg" }
+            { label: "Details", icon: "./icons/details.svg" }
         ]}
     />
 
@@ -25,9 +31,8 @@
         content="Just testin' stuff out"
         important={false}
         notificationDetails={[
-            { label: "option 1", icon: "./icons/visibility.svg" },
-            { label: "option 2", icon: "./icons/visibility_off.svg" },
-            { label: "option 3 djfhgdsjfbdsjkfh", icon: "./icons/github-mark 1.svg" }
+            { label: "Details", icon: "./icons/details.svg" },
+            { label: "Statistics", icon: "./icons/statistics.svg" }
         ]}
     />
 
@@ -36,9 +41,8 @@
         content="Just testin' stuff out"
         important={true}
         notificationDetails={[
-            { label: "option 1", icon: "./icons/visibility.svg" },
-            { label: "option 2", icon: "./icons/visibility_off.svg" },
-            { label: "option 3 djfhgdsjfbdsjkfh", icon: "./icons/github-mark 1.svg" }
+            { label: "Details", icon: "./icons/details.svg" },
+            { label: "Statistics", icon: "./icons/statistics.svg" }
         ]}
     />
 
