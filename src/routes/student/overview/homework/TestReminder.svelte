@@ -3,9 +3,8 @@
     import { createEventDispatcher } from "svelte";
     import Notification, { type NotificationDetails } from "../Notification.svelte";
 
-    export let title: string = "[Undefined]";
+    export let subjectTitle: string = "[Undefined]";
     export let content: string = "undefined";
-    export let important: boolean = false;
     export let notificationDetails: NotificationDetails = [];
 
     let dispatcher = createEventDispatcher();
@@ -13,12 +12,12 @@
 </script>
 
 <Notification
-    {title}
+    title={subjectTitle}
     {content}
     {notificationDetails}
     on:detailChoice={(e) => dispatcher('detailChoice', e.detail.detailIndex)}
 >
 
-    <span style="{important ? 'font-weight: bold;' : ''}">Et</span>
+    <img src="./icons/exclamation_mark.svg" alt="">
 
 </Notification>

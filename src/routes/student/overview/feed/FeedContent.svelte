@@ -60,6 +60,7 @@
         justify-content: stretch;
         width: 1068px;
         padding: 10px 0 10px 0;
+        margin-bottom: 1em;
         border-radius: 14px;
     }
 

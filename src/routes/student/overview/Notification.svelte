@@ -99,6 +99,8 @@
     }
 
     .slot-wrapper {
+        display: flex;
+        align-items: center;
         flex-basis: 3ch;
         flex-shrink: 0;
         color: var(--cl-high-emphasis);
