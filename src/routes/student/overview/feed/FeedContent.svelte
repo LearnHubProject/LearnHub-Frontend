@@ -18,16 +18,6 @@
 
     <FeedDate date={new Date(2024, 0, 3)} />
     
-    <DisciplinaryNote
-    title="Example"
-    content="Just testin' stuff out"
-    notificationDetails={[
-        { label: "Details", icon: "./icons/details.svg" },
-    ]}
-    />
-
-    <FeedDate date={new Date(2024, 0, 3)} />
-    
     <MarkNotification
     title="Example"
     content="Just testin' stuff out"

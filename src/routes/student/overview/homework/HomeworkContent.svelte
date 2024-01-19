@@ -15,6 +15,7 @@
     <Hometask
         subjectTitle="Mathematics"
         taskDescription="Solve all 7 Millennium Problems"
+        attachedFiles={[{ name: "test file", url: "abcdef.txt" }]}
     />
 
     <TestReminder
