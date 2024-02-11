@@ -11,7 +11,7 @@
     <DisciplinaryNote
         title="Example"
         content="Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit, cumque nam provident tempore aspernatur illum aut itaque vero odit, perspiciatis, veritatis nulla? Omnis deleniti voluptatibus doloribus, numquam alias harum repellat."
-        notificationDetails={[
+        details={[
             { label: "Details", icon: "./icons/details.svg" },
         ]}
     />
@@ -19,13 +19,13 @@
     <FeedDate date={new Date(2024, 0, 3)} />
     
     <MarkNotification
-    title="Example"
-    content="Just testin' stuff out"
-    important={false}
-    notificationDetails={[
-        { label: "Details", icon: "./icons/details.svg" },
-        { label: "Statistics", icon: "./icons/statistics.svg" },
-    ]}
+        title="Example"
+        content="Just testin' stuff out"
+        important={false}
+        details={[
+            { label: "Details", icon: "./icons/details.svg" },
+            { label: "Statistics", icon: "./icons/statistics.svg" },
+        ]}
     />
     
     <FeedDate date={new Date(2024, 0, 3)} />
@@ -34,7 +34,7 @@
         title="Example"
         content="Just testin' stuff out"
         important={true}
-        notificationDetails={[
+        details={[
             { label: "Details", icon: "./icons/details.svg" },
             { label: "Statistics", icon: "./icons/statistics.svg" },
         ]}

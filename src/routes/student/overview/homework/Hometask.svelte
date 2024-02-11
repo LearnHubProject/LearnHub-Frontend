@@ -6,8 +6,8 @@
 
     // TODO: add more data, specifically for the details menu
     export let subjectTitle: string = "[Undefined]";
-    export let taskDescription: string = "undefined";
-    export let notificationDetails: NotificationDetails[] = [];
+    export let description: string = "undefined";
+    export let details: NotificationDetails[] = [];
     export let attachedFiles: AttachedFileData[] = [];
 
     let dispatcher = createEventDispatcher();
@@ -22,8 +22,8 @@
 
 <Notification
     title={subjectTitle}
-    content={taskDescription}
-    {notificationDetails}
+    content={description}
+    {details}
     {attachedFiles}
     on:detailChoice={(e) => dispatcher('detailChoice', e.detail.detailIndex)}
 >

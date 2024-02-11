@@ -9,18 +9,27 @@
 
     <Hometask
         subjectTitle="Mathematics"
-        taskDescription="Solve all 7 Millennium Problems"
+        description="Solve all 7 Millennium Problems"
+        details={[
+            { label: "Details", icon: "./icons/details.svg" },
+        ]}
     />
 
     <Hometask
         subjectTitle="Mathematics"
-        taskDescription="Solve all 7 Millennium Problems"
+        description="Solve all 7 Millennium Problems"
         attachedFiles={[{ name: "test file", url: "abcdef.txt" }]}
+        details={[
+            { label: "Details", icon: "./icons/details.svg" },
+        ]}
     />
 
     <TestReminder
         subjectTitle="Mathematics"
         content="eee"
+        details={[
+            { label: "Details", icon: "./icons/details.svg" },
+        ]}
     />
 
 </main>

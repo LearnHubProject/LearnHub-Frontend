@@ -12,7 +12,7 @@
 
     export let title: string = "[Undefined]";
     export let content: string = "undefined";
-    export let notificationDetails: NotificationDetails[] = [];
+    export let details: NotificationDetails[] = [];
     export let attachedFiles: AttachedFileData[] = [];
 
     let attachedFilesMenu: HTMLElement;
@@ -29,7 +29,7 @@
             }
         }
 
-        showDetails = false;
+        showAttachedFiles = false;
 
         document.removeEventListener('click', closeAttachedFileMenuOnClickAnywhere);
     }
@@ -45,6 +45,8 @@
     }
 
     function showFile(fileIndex: number): void {
+        // TODO
+
         showAttachedFiles = false;
         document.removeEventListener('click', closeAttachedFileMenuOnClickAnywhere);
     }
@@ -64,6 +66,7 @@
 
     function toggleDetailsMenu(e: MouseEvent): void {
         showDetails = !showDetails;
+        console.log("toggled: ", showDetails);
 
         if (showDetails) {
             // Otherwise the event triggers the document immediately
@@ -125,7 +128,7 @@
     <div class="details-menu shadow" style="display: {showDetails ? 'initial' : 'none'};" bind:this={detailsMenu}>
         <div>
             
-            {#each notificationDetails as detail, i}
+            {#each details as detail, i}
 
             <NotificationDetailOption
                 label={detail.label}

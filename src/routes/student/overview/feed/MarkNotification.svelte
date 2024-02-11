@@ -6,7 +6,7 @@
     export let title: string = "[Undefined]";
     export let content: string = "undefined";
     export let important: boolean = false;
-    export let notificationDetails: NotificationDetails = [];
+    export let details: NotificationDetails[] = [];
 
     let dispatcher = createEventDispatcher();
 
@@ -15,7 +15,7 @@
 <Notification
     {title}
     {content}
-    {notificationDetails}
+    {details}
     on:detailChoice={(e) => dispatcher('detailChoice', e.detail.detailIndex)}
 >
 
