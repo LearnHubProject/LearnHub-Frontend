@@ -1,5 +1,6 @@
 <script lang="ts">
     
+    import TopBar from "../../../components/TopBar.svelte";
     import FeedContent from "./feed/FeedContent.svelte";
     import HomeworkContent from "./homework/HomeworkContent.svelte";
 
@@ -10,9 +11,11 @@
 
     <h1>Student overview page</h1>
 
-    <FeedContent />
+    <TopBar />
 
-    <HomeworkContent />
+    <!-- <FeedContent /> -->
+
+    <!-- <HomeworkContent /> -->
 
 </main>
 
