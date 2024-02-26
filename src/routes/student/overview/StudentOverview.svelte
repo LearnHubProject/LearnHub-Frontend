@@ -1,10 +1,39 @@
+<script lang="ts" context="module">
+    
+    import { fetchAllSubjects } from "../../../scripts/subject";
+
+    // TODO: get the list of subjects from the server
+    async function getInitialFilterConfig(): Promise<FilterConfig> {
+        const c = defaultFilterConfig();
+
+        const subjects = await fetchAllSubjects();
+
+        subjects.forEach((s) => {
+            c.subjectsSelection.set(s.title, true);
+        });
+
+        return c;
+    }
+
+</script>
+
 <script lang="ts">
     
+    import { onMount } from "svelte";
     import Header from "../../../components/Header.svelte";
     import TopBar from "../../../components/TopBar.svelte";
+    import FilterHeader, { type FilterConfig, defaultFilterConfig } from "./filters/FilterHeader.svelte";
+    import FilterBody from "./filters/FilterBody.svelte";
     import FeedContent from "./feed/FeedContent.svelte";
     import HomeworkContent from "./homework/HomeworkContent.svelte";
 
+    let filterConfig: FilterConfig = defaultFilterConfig();
+
+    onMount(async () => {
+        filterConfig = await getInitialFilterConfig();
+    });
+
+    $: console.log(filterConfig);
     
 </script>
 
@@ -14,11 +43,11 @@
 
     <div class="content">
 
-        <div></div>
+        <FilterHeader bind:filterConfig={filterConfig} />
 
-        <TopBar />
+        <TopBar on:tabSelected={() => {}} />
 
-        <div style="width: 313px; background: red;"></div>
+        <FilterBody bind:filterConfig={filterConfig} />
 
         <FeedContent />
 
