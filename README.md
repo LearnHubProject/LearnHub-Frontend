@@ -1,6 +1,6 @@
 # LearnHub login page
 
-# Steps to set up
+## Steps to set up
 
 1. Clone the repo.
 2. Run `npm i` to download all the dependencies.
