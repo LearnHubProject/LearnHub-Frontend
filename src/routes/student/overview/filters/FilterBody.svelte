@@ -29,7 +29,7 @@
 
 <main>
 
-    {#if filterConfig.showDateFilter}
+    {#if filterConfig.dateFilterEnabled && filterConfig.showDateFilter}
 
         <!-- TODO: date picker -->
         <div></div>

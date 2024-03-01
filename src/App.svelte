@@ -1,6 +1,13 @@
 <script lang="ts" context="module">
 
-    type UserRole = 'student' | 'parent' | 'teacher' | 'admin';
+    export const USER_ROLES = [
+        'student',
+        'parent',
+        'teacher',
+        'admin'
+    ] as const;
+
+    export type UserRole = (typeof USER_ROLES)[number];
 
 </script>
 

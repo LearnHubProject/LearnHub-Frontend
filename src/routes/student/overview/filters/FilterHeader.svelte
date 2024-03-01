@@ -14,7 +14,7 @@
             showSubjectFilter: true,
             subjectsSelection: new Map<string, boolean>(),
 
-            dateFilterEnabled: true,
+            dateFilterEnabled: false,
             showDateFilter: false,
         };
     }

@@ -1,5 +1,6 @@
 //@ts-nocheck
 
+// To be added
 export const ROUTES = [
     '/',
     '/about',
@@ -8,8 +9,7 @@ export const ROUTES = [
     '/overview'
 ] as const;
 
-// To be added
-export type Route = typeof ROUTES[number];
+export type Route = (typeof ROUTES)[number];
 
 // TODO: if there's a valid token, route to '/overview'
 export function routeApp(): Route {

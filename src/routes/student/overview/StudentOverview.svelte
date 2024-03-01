@@ -21,19 +21,25 @@
     
     import { onMount } from "svelte";
     import Header from "../../../components/Header.svelte";
-    import TopBar from "../../../components/TopBar.svelte";
+    import TabBar, { type TabName, TABS } from "../../../components/TabBar.svelte";
     import FilterHeader, { type FilterConfig, defaultFilterConfig } from "./filters/FilterHeader.svelte";
     import FilterBody from "./filters/FilterBody.svelte";
     import FeedContent from "./feed/FeedContent.svelte";
     import HomeworkContent from "./homework/HomeworkContent.svelte";
 
     let filterConfig: FilterConfig = defaultFilterConfig();
+    let currentTab: number = 0;
+
+    function onTabSelected(e: CustomEvent): void {
+        currentTab = e.detail.index;
+        filterConfig.dateFilterEnabled = e.detail.index == 1;
+    }
 
     onMount(async () => {
         filterConfig = await getInitialFilterConfig();
     });
 
-    $: console.log(filterConfig);
+    // $: console.log(filterConfig);
     
 </script>
 
@@ -45,11 +51,35 @@
 
         <FilterHeader bind:filterConfig={filterConfig} />
 
-        <TopBar on:tabSelected={() => {}} />
+        <TabBar on:tabSelected={onTabSelected} />
 
         <FilterBody bind:filterConfig={filterConfig} />
 
-        <FeedContent />
+        {#if currentTab === 0 }
+
+            <FeedContent />
+
+        {:else if currentTab === 1}
+
+            <HomeworkContent />
+        
+        {:else if currentTab === 2}
+
+            <!-- TODO: "All Marks" content -->
+
+        {:else if currentTab === 3}
+
+            <!-- TODO: "Timetable" content -->
+
+        {:else if currentTab === 4}
+
+            <!-- Placeholder -->
+
+        {:else}
+
+            <div style="color: red;">Error</div>
+
+        {/if}
 
     </div>
 

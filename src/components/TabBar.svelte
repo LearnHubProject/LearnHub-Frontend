@@ -1,3 +1,17 @@
+<script lang="ts" context="module">
+
+    export const TABS = [
+        "Feed",
+        "Homework",
+        "All Marks",
+        "Timetable",
+        "[Placeholder]"
+    ] as const;
+
+    export type TabName = (typeof TABS)[number];
+
+</script>
+
 <script lang="ts">
     
     import { createEventDispatcher } from "svelte";
@@ -18,7 +32,7 @@
 
 <main>
 
-    {#each ["Feed", "Homework", "All Marks", "Timetable", "[Placeholder]"] as tab, i}
+    {#each TABS as tab, i}
 
     <Tab
         title={tab}

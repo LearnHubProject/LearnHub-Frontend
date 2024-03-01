@@ -1,3 +1,5 @@
+import { USER_ROLES, type UserRole } from "../App.svelte";
+
 const DEV_MODE = true;
 
 // "Borrowed" from: https://stackoverflow.com/questions/46155/how-can-i-validate-an-email-address-in-javascript 
@@ -14,7 +16,7 @@ type ServerResponce<T> = {
 // ======================================================
 
 type RegisterResponce = ServerResponce<{
-    token?: string
+    token: string
 }>
 
 export async function registerRequest(email: string, password: string): Promise<RegisterResponce> {
@@ -25,15 +27,17 @@ export async function registerRequest(email: string, password: string): Promise<
     return { successful: false };
 }
 
+// ======================================================
 
 type LoginResponce = ServerResponce<{
-    token?: string
+    token: string,
+    role: UserRole
 }>
 
 // TODO: real login
 export async function loginRequest(email: string, password: string): Promise<LoginResponce> {
     if (DEV_MODE) {
-        return { successful: true, data: { token: "abcdef" } };
+        return { successful: true, data: { token: "abcdef", role: 'student' } };
     }
     
     if (email.length > 255 || !email.match(EMAIL_REGEX)) {
@@ -59,8 +63,11 @@ export async function loginRequest(email: string, password: string): Promise<Log
     if (err != undefined) {
         return { successful: false, error: err };
     }
+    if (USER_ROLES.findIndex(resp.role) === -1) {
+        return { successful: false, error: `Invalid user role returned from the server: ${resp.role}` };
+    }
     
-    return { successful: true, data: { token: resp } };
+    return { successful: true, data: { token: resp.token, role: resp.role } };
 }
 
 // ======================================================
