@@ -1,4 +1,5 @@
 import { USER_ROLES, type UserRole } from "../App.svelte";
+import type { Token } from "./token";
 
 const DEV_MODE = true;
 
@@ -16,7 +17,7 @@ type ServerResponce<T> = {
 // ======================================================
 
 type RegisterResponce = ServerResponce<{
-    token: string
+    token: Token
 }>
 
 export async function registerRequest(email: string, password: string): Promise<RegisterResponce> {
@@ -30,7 +31,7 @@ export async function registerRequest(email: string, password: string): Promise<
 // ======================================================
 
 type LoginResponce = ServerResponce<{
-    token: string,
+    token: Token,
     role: UserRole
 }>
 

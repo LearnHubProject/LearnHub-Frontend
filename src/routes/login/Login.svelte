@@ -1,11 +1,25 @@
 <script lang="ts">
 
+    import { loginRequest } from "../../scripts/api";
     import Footer from "../../components/Footer.svelte";
     import TextInput from "./TextInput.svelte";
     import Blobs from "../../components/Blobs.svelte";
 
-    function login(): void {
-        console.log("logging in");
+    let email: string;
+    let password: string;
+
+    async function login(): Promise<void> {
+        // TODO: log in
+        let resp = await loginRequest(email, password);
+        if (!resp.successful) {
+            console.error(resp.error);
+            // Also reflect with the UI
+            return;
+        }
+
+        // Assing the token and the role of the user
+
+        location.href = '/overview';
     }
 
 </script>
@@ -26,11 +40,13 @@
 
         <TextInput
             placeholder="Login"
+            bind:text={email}
         />
 
         <TextInput
             placeholder="Password"
             type="password"
+            bind:text={password}
         />
 
         <!-- a or button? -->
@@ -104,8 +120,8 @@
 
     button {
         width: 100%;
-        height: 54px; /* */
-        margin: 14px 0 40px 0; /* */
+        height: 54px;
+        margin: 14px 0 40px 0;
         border: none;
         border-radius: 4px;
         background-color: var(--cl-accent);

@@ -2,6 +2,7 @@
 
     export let type: 'text' | 'password' = 'text';
     export let placeholder: string = "";
+    export let text: string = "";
 
     let passwordVisible: boolean = false;
 
@@ -9,11 +10,21 @@
         passwordVisible = !passwordVisible;
     }
 
+    function textChanged(e: Event): void {
+        if (!(e.target instanceof HTMLInputElement)) { // unreachable, but just in case
+            console.error("The target of the InputEvent was not a text field.");
+            return;
+        }
+
+        text = (e.target as HTMLInputElement).value;
+    }
+
 </script>
 
 <main>
 
-    <input type={passwordVisible ? 'text' : type} {placeholder} />
+    <!-- Can't just bind:value, doesn't work for dynamic input types -->
+    <input type={passwordVisible ? 'text' : type} {placeholder} on:input={textChanged} />
 
 
     {#if type !== 'text'}

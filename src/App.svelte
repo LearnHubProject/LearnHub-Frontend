@@ -23,10 +23,9 @@
     import TeacherOverview from "./routes/teacher/overview/TeacherOverview.svelte"
     import AdminOverview from "./routes/admin/overview/AdminOverview.svelte"
 
-    // const route = routeApp();
-    // const route = '/';
-    const route = '/overview';
-    const role: UserRole = 'student';
+    const route = routeApp();
+    let role: UserRole = 'student';
+    let token;
 
 </script>
 
