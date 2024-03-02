@@ -3,16 +3,17 @@
     import { createEventDispatcher } from "svelte";
     import type { FilterConfig } from "./FilterHeader.svelte";
     import SubjectFilter from "./SubjectFilter.svelte";
+    import type { Subject } from "../../../../scripts/subject";
 
     export let title: string = "[Unnamed group]";
-    export let subjects: string[] = [];
+    export let subjects: Subject[] = [];
     export let filterConfig: FilterConfig;
 
     let dispatcher = createEventDispatcher();
     let open: boolean;
 
-    function toggleSubject(subject: string, e: CustomEvent): void {
-        filterConfig.subjectsSelection.set(subject, e.detail.selected);
+    function toggleSubject(subject: Subject, e: CustomEvent): void {
+        filterConfig.subjectsSelection.set(JSON.stringify(subject), e.detail.selected);
         dispatcher('filterupdate', { newFilter: filterConfig });
     }
 
@@ -36,8 +37,8 @@
         {#each subjects as subject}
 
             <SubjectFilter
-                label={subject}
-                selected={filterConfig.subjectsSelection.get(subject) ?? false}
+                label={subject.title}
+                selected={filterConfig.subjectsSelection.get(JSON.stringify(subject)) ?? false}
                 on:toggle={(e) => toggleSubject(subject, e)}
             />
 

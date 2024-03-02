@@ -1,5 +1,6 @@
 import { USER_ROLES, type UserRole } from "../App.svelte";
 import type { Token } from "./token";
+import type { Subject } from "./subject"
 
 const DEV_MODE = true;
 
@@ -12,6 +13,23 @@ type ServerResponce<T> = {
 } | {
     successful: false,
     error?: string
+}
+
+async function serverRequest(url: string, method: 'GET' | 'POST', data: object): Promise<ServerResponce<any>> {
+    let err;
+    const resp = await fetch(url, {
+        method,
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+    })
+        .then(r => r.json())
+        .catch(e => {
+            err = e;
+        });
+    
+    return { successful: err == undefined, data: resp, error: err };
 }
 
 // ======================================================
@@ -48,27 +66,41 @@ export async function loginRequest(email: string, password: string): Promise<Log
         return { successful: false, error: "Password too long." };
     }
 
-    let err;
-    const resp = await fetch("/api/login", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-    })
-        .then(r => r.json())
-        .catch(e => {
-            err = e;
-        });
+    const resp = await serverRequest("/api/login", 'POST', { email, password });
     
-    if (err != undefined) {
-        return { successful: false, error: err };
-    }
-    if (USER_ROLES.findIndex(resp.role) === -1) {
-        return { successful: false, error: `Invalid user role returned from the server: ${resp.role}` };
+    if (resp.successful && USER_ROLES.findIndex(resp.data.role) === -1) {
+        return { successful: false, error: `Invalid user role returned from the server: ${resp.data.role}` };
     }
     
-    return { successful: true, data: { token: resp.token, role: resp.role } };
+    return resp;
 }
 
 // ======================================================
+
+type SubjectFetchResponce = ServerResponce<{
+    subjects: Set<Subject>
+}>
+
+let subjectsCache: Set<Subject>;
+
+export async function fetchAllSubjects(token: Token, ignoreCache: boolean = false): Promise<SubjectFetchResponce> {
+    if (!ignoreCache && subjectsCache !== undefined) return { successful: true, data: { subjects: subjectsCache } };
+    
+    // TODO: fetch from the server
+    subjectsCache = new Set([
+        {
+            category: "GAC",
+            title: 'Chemistry'
+        },
+        {
+            category: "GAC",
+            title: "Physics"
+        },
+        {
+            category: "Valik",
+            title: "CAE"
+        }
+    ]);
+
+    return { successful: true, data: { subjects: subjectsCache } };
+}

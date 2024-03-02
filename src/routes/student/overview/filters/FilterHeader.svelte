@@ -2,7 +2,7 @@
 
     export interface FilterConfig {
         showSubjectFilter: boolean,
-        subjectsSelection: Map<string, boolean>, // TODO: map key should be different
+        subjectsSelection: Map<string, boolean>, // key = JSON.stringify(subject)
 
         dateFilterEnabled: boolean,
         showDateFilter: boolean,

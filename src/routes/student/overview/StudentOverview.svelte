@@ -1,15 +1,20 @@
 <script lang="ts" context="module">
     
-    import { fetchAllSubjects } from "../../../scripts/subject";
+    import { fetchAllSubjects } from "../../../scripts/api";
 
     // TODO: get the list of subjects from the server
-    async function getInitialFilterConfig(): Promise<FilterConfig> {
+    async function getInitialFilterConfig(): Promise<FilterConfig | undefined> {
         const c = defaultFilterConfig();
 
-        const subjects = await fetchAllSubjects();
+        const resp = await fetchAllSubjects(""); // TODO: real token
 
-        subjects.forEach((s) => {
-            c.subjectsSelection.set(s.title, true);
+        if (!resp.successful) {
+            console.error(resp.error);
+            return;
+        }
+
+        resp.data!.subjects.forEach((s) => {
+            c.subjectsSelection.set(JSON.stringify(s), true);
         });
 
         return c;
@@ -21,7 +26,7 @@
     
     import { onMount } from "svelte";
     import Header from "../../../components/Header.svelte";
-    import TabBar, { type TabName, TABS } from "../../../components/TabBar.svelte";
+    import TabBar from "../../../components/TabBar.svelte";
     import FilterHeader, { type FilterConfig, defaultFilterConfig } from "./filters/FilterHeader.svelte";
     import FilterBody from "./filters/FilterBody.svelte";
     import FeedContent from "./feed/FeedContent.svelte";
@@ -36,7 +41,10 @@
     }
 
     onMount(async () => {
-        filterConfig = await getInitialFilterConfig();
+        const fc = await getInitialFilterConfig();
+        if (fc == undefined) return;
+        
+        filterConfig = fc;
     });
 
     // $: console.log(filterConfig);
@@ -51,7 +59,10 @@
 
         <FilterHeader bind:filterConfig={filterConfig} />
 
-        <TabBar on:tabSelected={onTabSelected} />
+        <TabBar
+            tabNames={["Feed", "Homework", "All Marks", "Timetable", "[Placeholder]"]}
+            on:tabSelected={onTabSelected}
+        />
 
         <FilterBody bind:filterConfig={filterConfig} />
 

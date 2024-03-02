@@ -1,27 +1,29 @@
 <script lang="ts">
     
     import { onMount } from "svelte";
-    import { fetchAllSubjects } from "../../../../scripts/subject";
+    import { fetchAllSubjects } from "../../../../scripts/api";
+    import type { Subject } from "../../../../scripts/subject";
     import type { FilterConfig } from "./FilterHeader.svelte";
     import SubjectCategoryCard from "./SubjectCategoryCard.svelte";
 
     export let filterConfig: FilterConfig;
 
-    let subjectList: Map<string, string[]> = new Map<string, string[]>();
+    let subjectsByCategory: Map<string, Subject[]> = new Map<string, Subject[]>();
 
     function updateFilter(e: CustomEvent): void {
         filterConfig = e.detail.newFilter;
     }
 
     onMount(async () => {
-        const subjects = await fetchAllSubjects();
+        const resp = await fetchAllSubjects(""); // TODO: real token
+        if (!resp.successful) return;
 
-        subjects.forEach((s) => {
-            if (!subjectList.has(s.category)) {
-                subjectList.set(s.category, []);
+        resp.data!.subjects.forEach((s) => {
+            if (!subjectsByCategory.has(s.category)) {
+                subjectsByCategory.set(s.category, []);
             }
 
-            subjectList.get(s.category)!.push(s.title);
+            subjectsByCategory.get(s.category)!.push(s);
         });
     });
 
@@ -38,7 +40,7 @@
 
     {#if filterConfig.showSubjectFilter}
 
-        {#each subjectList as category}
+        {#each subjectsByCategory as category}
 
         <SubjectCategoryCard
             title={category[0]}

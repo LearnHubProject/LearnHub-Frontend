@@ -1,23 +1,10 @@
-<script lang="ts" context="module">
-
-    export const TABS = [
-        "Feed",
-        "Homework",
-        "All Marks",
-        "Timetable",
-        "[Placeholder]"
-    ] as const;
-
-    export type TabName = (typeof TABS)[number];
-
-</script>
-
 <script lang="ts">
     
     import { createEventDispatcher } from "svelte";
     import Tab from "./Tab.svelte";
 
-    export let notifications: boolean[] = [false, true, false, false, false];
+    export let tabNames: string[] = [];
+    export let notifications: boolean[] = [false, true, false, false, false]; // TODO: delete the default value
 
     let dispatcher = createEventDispatcher();
     let currentTab: number = 0;
@@ -32,7 +19,7 @@
 
 <main>
 
-    {#each TABS as tab, i}
+    {#each tabNames as tab, i}
 
     <Tab
         title={tab}
