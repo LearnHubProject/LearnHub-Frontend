@@ -1,5 +1,7 @@
 <script lang="ts" context="module">
 
+    import { fetchAllSubjects } from "$script/api";
+
     export interface FilterConfig {
         showSubjectFilter: boolean,
         subjectsSelection: Map<string, boolean>, // key = JSON.stringify(subject)
@@ -17,6 +19,23 @@
             dateFilterEnabled: false,
             showDateFilter: false,
         };
+    }
+
+    export async function getInitialFilterConfig(): Promise<FilterConfig | undefined> {
+        const c = defaultFilterConfig();
+
+        const resp = await fetchAllSubjects(""); // TODO: real token
+
+        if (!resp.successful) {
+            console.error(resp.error);
+            return;
+        }
+
+        resp.data!.subjects.forEach((s) => {
+            c.subjectsSelection.set(JSON.stringify(s), true);
+        });
+
+        return c;
     }
 
 </script>
