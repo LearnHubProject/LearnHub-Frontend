@@ -24,7 +24,7 @@
     import AdminOverview from "./routes/admin/overview/AdminOverview.svelte"
 
     const route = routeApp();
-    let role: UserRole = 'student';
+    let role: UserRole = 'teacher';
     let token;
 
 </script>

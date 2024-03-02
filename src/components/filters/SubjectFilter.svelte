@@ -1,7 +1,7 @@
 <script lang="ts">
     
     import { createEventDispatcher } from "svelte";
-    import Checkbox from "../../../../components/Checkbox.svelte";
+    import Checkbox from "$comp/Checkbox.svelte";
 
     export let label: string;
     export let selected: boolean;

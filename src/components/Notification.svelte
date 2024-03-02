@@ -8,7 +8,7 @@
 <script lang="ts">
     
     import { createEventDispatcher } from "svelte";
-    import NotificationDetailOption from "./NotificationDetailOption.svelte";
+    import NotificationDetailOption from "../routes/student/overview/NotificationDetailOption.svelte";
 
     export let title: string = "[Undefined]";
     export let content: string = "undefined";

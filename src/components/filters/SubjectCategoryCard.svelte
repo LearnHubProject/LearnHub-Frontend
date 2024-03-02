@@ -3,7 +3,7 @@
     import { createEventDispatcher } from "svelte";
     import type { FilterConfig } from "./FilterHeader.svelte";
     import SubjectFilter from "./SubjectFilter.svelte";
-    import type { Subject } from "../../../../scripts/subject";
+    import type { Subject } from "$script/subject";
 
     export let title: string = "[Unnamed group]";
     export let subjects: Subject[] = [];

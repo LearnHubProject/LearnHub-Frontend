@@ -1,8 +1,7 @@
 <script lang="ts">
 
-    import Footer from "../../components/Footer.svelte";
-    import Blobs from "../../components/Blobs.svelte";
-    import { onMount } from "svelte";
+    import Footer from "$comp/Footer.svelte";
+    import Blobs from "$comp/Blobs.svelte";
 
 </script>
 

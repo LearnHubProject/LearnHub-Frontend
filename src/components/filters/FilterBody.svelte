@@ -1,8 +1,8 @@
 <script lang="ts">
     
     import { onMount } from "svelte";
-    import { fetchAllSubjects } from "../../../../scripts/api";
-    import type { Subject } from "../../../../scripts/subject";
+    import { fetchAllSubjects } from "$script/api";
+    import type { Subject } from "$script/subject";
     import type { FilterConfig } from "./FilterHeader.svelte";
     import SubjectCategoryCard from "./SubjectCategoryCard.svelte";
 

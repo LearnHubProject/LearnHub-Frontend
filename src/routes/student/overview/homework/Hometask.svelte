@@ -1,8 +1,8 @@
 <script lang="ts">
 
     import { createEventDispatcher } from "svelte";
-    import Notification, { type AttachedFileData, type NotificationDetails } from "../Notification.svelte";
-    import Checkbox from "../../../../components/Checkbox.svelte";
+    import Notification, { type AttachedFileData, type NotificationDetails } from "$comp/Notification.svelte";
+    import Checkbox from "$comp/Checkbox.svelte";
 
     // TODO: add more data, specifically for the details menu
     export let subjectTitle: string = "[Undefined]";

@@ -1,7 +1,7 @@
 <script lang="ts">
 
     import { createEventDispatcher } from "svelte";
-    import Notification, { type NotificationDetails } from "../Notification.svelte";
+    import Notification, { type NotificationDetails } from "$comp/Notification.svelte";
 
     export let subjectTitle: string = "[Undefined]";
     export let content: string = "undefined";

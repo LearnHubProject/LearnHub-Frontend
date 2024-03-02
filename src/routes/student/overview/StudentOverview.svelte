@@ -1,6 +1,6 @@
 <script lang="ts" context="module">
     
-    import { fetchAllSubjects } from "../../../scripts/api";
+    import { fetchAllSubjects } from "$script/api";
 
     // TODO: get the list of subjects from the server
     async function getInitialFilterConfig(): Promise<FilterConfig | undefined> {
@@ -25,11 +25,11 @@
 <script lang="ts">
     
     import { onMount } from "svelte";
-    import Header from "../../../components/Header.svelte";
-    import TabBar from "../../../components/TabBar.svelte";
-    import FilterHeader, { type FilterConfig, defaultFilterConfig } from "./filters/FilterHeader.svelte";
-    import FilterBody from "./filters/FilterBody.svelte";
-    import FeedContent from "./feed/FeedContent.svelte";
+    import Header from "$comp/Header.svelte";
+    import TabBar from "$comp/TabBar.svelte";
+    import FilterHeader, { type FilterConfig, defaultFilterConfig } from "$comp/filters/FilterHeader.svelte";
+    import FilterBody from "$comp/filters/FilterBody.svelte";
+    import FeedContent from "$comp/feed/FeedContent.svelte";
     import HomeworkContent from "./homework/HomeworkContent.svelte";
 
     let filterConfig: FilterConfig = defaultFilterConfig();

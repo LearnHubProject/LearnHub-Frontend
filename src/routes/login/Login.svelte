@@ -1,9 +1,9 @@
 <script lang="ts">
 
     import { loginRequest } from "../../scripts/api";
-    import Footer from "../../components/Footer.svelte";
+    import Footer from "$comp/Footer.svelte";
+    import Blobs from "$comp/Blobs.svelte";
     import TextInput from "./TextInput.svelte";
-    import Blobs from "../../components/Blobs.svelte";
 
     let email: string;
     let password: string;
@@ -17,7 +17,7 @@
             return;
         }
 
-        // Assing the token and the role of the user
+        // Assign the token and the role of the user
 
         location.href = '/overview';
     }
