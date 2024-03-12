@@ -1,39 +1,61 @@
 <script lang="ts" context="module">
 
     import { fetchAllSubjects } from "$script/api";
+    import type { Token } from "$script/token";
 
     export interface FilterConfig {
-        showSubjectFilter: boolean,
-        subjectsSelection: Map<string, boolean>, // key = JSON.stringify(subject)
+        subjects: {
+            show: boolean,
+            selection: Map<string, boolean>, // key = JSON.stringify(subject)
+        },
 
-        dateFilterEnabled: boolean,
-        showDateFilter: boolean,
-        date?: Date
+        classes: {
+            enabled: boolean,
+            show: boolean,
+            selection: Map<string, boolean>, // key = class name
+        },
+
+        date: {
+            enabled: boolean,
+            show: boolean,
+            date?: Date
+        }
     }
 
     export function defaultFilterConfig(): FilterConfig {
         return {
-            showSubjectFilter: true,
-            subjectsSelection: new Map<string, boolean>(),
-
-            dateFilterEnabled: false,
-            showDateFilter: false,
+            subjects: {
+                show: true,
+                selection: new Map<string, boolean>()
+            },
+            classes: {
+                enabled: false,
+                show: false,
+                selection: new Map<string, boolean>()
+            },
+            date: {
+                enabled: false,
+                show: false
+            }
         };
     }
 
-    export async function getInitialFilterConfig(): Promise<FilterConfig | undefined> {
+    export async function getInitialFilterConfig(token: Token): Promise<FilterConfig | undefined> {
         const c = defaultFilterConfig();
 
-        const resp = await fetchAllSubjects(""); // TODO: real token
+        const resp = await fetchAllSubjects(token);
 
         if (!resp.successful) {
             console.error(resp.error);
             return;
         }
 
+        // Every subject is selected by default
         resp.data!.subjects.forEach((s) => {
-            c.subjectsSelection.set(JSON.stringify(s), true);
+            c.subjects.selection.set(JSON.stringify(s), true);
         });
+
+        // c.classes.selection.set("11ED", false);
 
         return c;
     }
@@ -48,17 +70,25 @@
 
 <main>
 
-    <button title="Toggle subject filter" on:click={() => filterConfig.showSubjectFilter = !filterConfig.showSubjectFilter}>
+    <button title="Toggle subject filter" on:click={() => filterConfig.subjects.show = !filterConfig.subjects.show}>
         Filters
-        <img src="./icons/filter_list.svg" alt="" />
+        <img src="./icons/filter_list.svg" alt="subject" />
     </button>
 
-    {#if filterConfig.dateFilterEnabled}
+    {#if filterConfig.date.enabled}
     
-        <button title="Toggle date filter" on:click={() => filterConfig.showDateFilter = !filterConfig.showDateFilter}>
-            <img src="./icons/calendar.svg" alt="">
+        <button title="Toggle date filter" on:click={() => filterConfig.date.show = !filterConfig.date.show}>
+            <img src="./icons/calendar.svg" alt="date">
         </button>
     
+    {/if}
+
+    {#if filterConfig.classes.enabled}
+
+        <button title="Toggle class filter" on:click={() => filterConfig.classes.show = !filterConfig.classes.show}>
+            <img src="./icons/class.svg" alt="class">
+        </button>
+
     {/if}
 
 </main>

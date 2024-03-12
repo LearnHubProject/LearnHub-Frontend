@@ -1,20 +1,20 @@
 <script lang="ts">
     
     import { createEventDispatcher } from "svelte";
-    import type { FilterConfig } from "./FilterHeader.svelte";
-    import SubjectFilter from "./SubjectFilter.svelte";
-    import type { Subject } from "$script/subject";
+    import FilterEntry from "./FilterEntry.svelte";
+
+    type Entry = any;
 
     export let title: string = "[Unnamed group]";
-    export let subjects: Subject[] = [];
-    export let filterConfig: FilterConfig;
+    export let entries: Entry[];
+    export let entryLabel: (entry: Entry) => string = (entry: Entry) => String(entry);
+    export let entryDefaultState: (entry: Entry) => boolean = () => false;
 
     let dispatcher = createEventDispatcher();
-    let open: boolean;
+    let open: boolean = false;
 
-    function toggleSubject(subject: Subject, e: CustomEvent): void {
-        filterConfig.subjectsSelection.set(JSON.stringify(subject), e.detail.selected);
-        dispatcher('filterupdate', { newFilter: filterConfig });
+    function toggleEntry(entry: Entry, e: CustomEvent<{ selected: boolean }>): void {
+        dispatcher('toggle', { entry: entry, selected: e.detail.selected });
     }
 
 </script>
@@ -33,13 +33,13 @@
     {#if open}
 
         <span></span>
-    
-        {#each subjects as subject}
 
-            <SubjectFilter
-                label={subject.title}
-                selected={filterConfig.subjectsSelection.get(JSON.stringify(subject)) ?? false}
-                on:toggle={(e) => toggleSubject(subject, e)}
+        {#each entries as entry}
+
+            <FilterEntry
+                label={entryLabel(entry)}
+                selected={entryDefaultState(entry)}
+                on:toggle={(e) => toggleEntry(entry, e)}
             />
 
         {/each}

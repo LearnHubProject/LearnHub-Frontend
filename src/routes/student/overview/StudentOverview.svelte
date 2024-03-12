@@ -11,19 +11,19 @@
     let filterConfig: FilterConfig = defaultFilterConfig();
     let currentTab: number = 0;
 
-    function onTabSelected(e: CustomEvent): void {
+    function onTabSelected(e: CustomEvent<{ index: number }>): void {
         currentTab = e.detail.index;
-        filterConfig.dateFilterEnabled = e.detail.index == 1;
+        filterConfig.date.enabled = e.detail.index == 1;
     }
 
     onMount(async () => {
-        const fc = await getInitialFilterConfig();
+        const fc = await getInitialFilterConfig(""); // TODO: real token
         if (fc == undefined) return;
-        
+
         filterConfig = fc;
     });
 
-    // $: console.log(filterConfig);
+    $: console.log(filterConfig);
     
 </script>
 

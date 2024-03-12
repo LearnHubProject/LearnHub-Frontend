@@ -10,17 +10,23 @@
     let filterConfig: FilterConfig = defaultFilterConfig();
     let currentTab: number = 0;
 
-    function onTabSelected(e: CustomEvent): void {
+    function onTabSelected(e: CustomEvent<{ index: number }>): void {
         currentTab = e.detail.index;
-        filterConfig.dateFilterEnabled = e.detail.index == 1;
+
+        const showFilter = currentTab === 1;
+        filterConfig.classes.enabled = showFilter;
+        filterConfig.classes.show = showFilter;
+        
     }
 
     onMount(async () => {
-        const fc = await getInitialFilterConfig();
+        const fc = await getInitialFilterConfig(""); // TODO: real token
         if (fc == undefined) return;
-        
+
         filterConfig = fc;
     });
+
+    // $: console.warn(filterConfig);
 
 </script>
 
@@ -29,7 +35,7 @@
     <FilterHeader bind:filterConfig={filterConfig} />
 
     <TabBar
-        tabNames={["Feed", "Homework", "All Marks", "Timetable", "[Placeholder]"]}
+        tabNames={["Feed", "Journals", "My Classes", "[Placeholder]", "[Placeholder]"]}
         on:tabSelected={onTabSelected}
     />
 
@@ -41,15 +47,15 @@
 
     {:else if currentTab === 1}
 
-        <!-- <HomeworkContent /> -->
+        <!-- Journals -->
         
     {:else if currentTab === 2}
 
-        <!-- TODO: "All Marks" content -->
+        <!-- TODO: "My Classes" content -->
 
     {:else if currentTab === 3}
 
-        <!-- TODO: "Timetable" content -->
+        <!-- Placeholder -->
 
     {:else if currentTab === 4}
 
