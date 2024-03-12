@@ -7,7 +7,7 @@ const DEV_MODE = true;
 // "Borrowed" from: https://stackoverflow.com/questions/46155/how-can-i-validate-an-email-address-in-javascript 
 const EMAIL_REGEX = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
-type ServerResponce<T> = {
+type ServerResponse<T> = {
     successful: true,
     data?: T
 } | {
@@ -15,7 +15,7 @@ type ServerResponce<T> = {
     error?: string
 }
 
-async function serverRequest(url: string, method: 'GET' | 'POST', data: object): Promise<ServerResponce<any>> {
+async function serverRequest(url: string, method: 'GET' | 'POST', data: object): Promise<ServerResponse<any>> {
     let err;
     const resp = await fetch(url, {
         method,
@@ -34,11 +34,11 @@ async function serverRequest(url: string, method: 'GET' | 'POST', data: object):
 
 // ======================================================
 
-type RegisterResponce = ServerResponce<{
+type RegisterResponse = ServerResponse<{
     token: Token
 }>
 
-export async function registerRequest(email: string, password: string): Promise<RegisterResponce> {
+export async function registerRequest(email: string, password: string): Promise<RegisterResponse> {
     if (DEV_MODE) {
         return { successful: true, data: { token: "abcdef" } };
     }
@@ -48,13 +48,13 @@ export async function registerRequest(email: string, password: string): Promise<
 
 // ======================================================
 
-type LoginResponce = ServerResponce<{
+type LoginResponse = ServerResponse<{
     token: Token,
     role: UserRole
 }>
 
 // TODO: real login
-export async function loginRequest(email: string, password: string): Promise<LoginResponce> {
+export async function loginRequest(email: string, password: string): Promise<LoginResponse> {
     if (DEV_MODE) {
         return { successful: true, data: { token: "abcdef", role: 'student' } };
     }
@@ -77,30 +77,68 @@ export async function loginRequest(email: string, password: string): Promise<Log
 
 // ======================================================
 
-type SubjectFetchResponce = ServerResponce<{
-    subjects: Set<Subject>
+type SubjectFetchResponse = ServerResponse<{
+    subjects: Subject[]
 }>
 
-let subjectsCache: Set<Subject>;
+let subjectsCache: Subject[];
 
-export async function fetchAllSubjects(token: Token, ignoreCache: boolean = false): Promise<SubjectFetchResponce> {
+export async function fetchAllSubjects(token: Token, ignoreCache: boolean = false): Promise<SubjectFetchResponse> {
     if (!ignoreCache && subjectsCache !== undefined) return { successful: true, data: { subjects: subjectsCache } };
     
-    // TODO: fetch from the server
-    subjectsCache = new Set([
-        {
-            category: "GAC",
-            title: 'Chemistry'
-        },
-        {
-            category: "GAC",
-            title: "Physics"
-        },
-        {
-            category: "Valik",
-            title: "CAE"
-        }
-    ]);
+    if (DEV_MODE) {
+        subjectsCache = [
+            {
+                category: "GAC",
+                title: 'Chemistry'
+            },
+            {
+                category: "GAC",
+                title: "Physics"
+            },
+            {
+                category: "Valik",
+                title: "CAE"
+            }
+        ];
+        return { successful: true, data: { subjects: subjectsCache } };
+    }
+    
+    const resp = await serverRequest("/api/subjects", 'GET', { token });
 
+    if (!resp.successful) {
+        return resp;
+    }
+
+    subjectsCache = resp.data.subjects;
+    
     return { successful: true, data: { subjects: subjectsCache } };
+}
+
+// ======================================================
+
+type ClassesFetchResponse = ServerResponse<{
+    classes: string[]
+}>
+
+let classesTaughtCache: string[];
+
+export async function fetchClassesTaught(token: Token, ignoreCache: boolean): Promise<ClassesFetchResponse> {
+    if (!ignoreCache && classesTaughtCache !== undefined) return { successful: true, data: { classes: classesTaughtCache } };
+    
+    if (DEV_MODE) {
+        classesTaughtCache = [
+            "11ED"
+        ];
+    }
+
+    const resp = await serverRequest("/api/classes", 'GET', { token });
+    
+    if (!resp.successful) {
+        return resp;
+    }
+
+    classesTaughtCache = resp.data.classes;
+
+    return { successful: true, data: { classes: classesTaughtCache } };
 }

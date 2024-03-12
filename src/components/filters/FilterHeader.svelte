@@ -40,6 +40,7 @@
         };
     }
 
+    // TODO: decide if it's worth having this function at all
     export async function getInitialFilterConfig(token: Token): Promise<FilterConfig | undefined> {
         const c = defaultFilterConfig();
 
@@ -54,8 +55,6 @@
         resp.data!.subjects.forEach((s) => {
             c.subjects.selection.set(JSON.stringify(s), true);
         });
-
-        // c.classes.selection.set("11ED", false);
 
         return c;
     }
