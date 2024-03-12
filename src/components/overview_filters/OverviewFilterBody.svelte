@@ -1,8 +1,8 @@
 <script lang="ts">
     
     import type { Subject } from "$script/subject";
-    import type { FilterConfig } from "./FilterHeader.svelte";
-    import FilterCategory from "./FilterCategory.svelte"
+    import type { FilterConfig } from "./OverviewFilterHeader.svelte";
+    import OverviewFilterCategory from "./OverviewFilterCategory.svelte"
 
     export let filterConfig: FilterConfig;
 
@@ -55,7 +55,7 @@
 
             {#each generateSubjectGroups(filterConfig) as [category, subjects]}
 
-                <FilterCategory
+                <OverviewFilterCategory
                     title={category}
                     entries={subjects}
                     entryLabel={(e) => e.title}
@@ -67,7 +67,7 @@
 
         {:else if true} <!-- role='teacher' -->
 
-            <FilterCategory
+            <OverviewFilterCategory
                 title={"Subjects"}
                 entries={Array(...filterConfig.subjects.selection.keys())}
                 entryLabel={(e) => JSON.parse(e).title}
@@ -81,7 +81,7 @@
 
     {#if filterConfig.classes.show}
 
-        <FilterCategory
+        <OverviewFilterCategory
             title={"Classes"}
             entries={Array(...filterConfig.classes.selection.keys())}
             entryDefaultState={(e) => filterConfig.classes.selection.get(e) ?? false}

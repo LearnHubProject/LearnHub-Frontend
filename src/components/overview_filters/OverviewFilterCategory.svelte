@@ -1,7 +1,7 @@
 <script lang="ts">
     
     import { createEventDispatcher } from "svelte";
-    import FilterEntry from "./FilterEntry.svelte";
+    import OverviewFilterEntry from "./OverviewFilterEntry.svelte";
 
     type Entry = any;
 
@@ -36,7 +36,7 @@
 
         {#each entries as entry}
 
-            <FilterEntry
+            <OverviewFilterEntry
                 label={entryLabel(entry)}
                 selected={entryDefaultState(entry)}
                 on:toggle={(e) => toggleEntry(entry, e)}

@@ -3,8 +3,8 @@
     import { onMount } from "svelte";
     import OverviewTemplate from "$comp/OverviewTemplate.svelte"
     import TabBar from "$comp/TabBar.svelte";
-    import FilterHeader, { type FilterConfig, defaultFilterConfig, getInitialFilterConfig } from "$comp/filters/FilterHeader.svelte";
-    import FilterBody from "$comp/filters/FilterBody.svelte";
+    import OverviewFilterHeader, { type FilterConfig, defaultFilterConfig, getInitialFilterConfig } from "$comp/overview_filters/OverviewFilterHeader.svelte";
+    import OverviewFilterBody from "$comp/overview_filters/OverviewFilterBody.svelte";
     import FeedContent from "$comp/feed/FeedContent.svelte";
     import HomeworkContent from "./homework/HomeworkContent.svelte";
 
@@ -29,14 +29,14 @@
 
 <OverviewTemplate>
 
-    <FilterHeader bind:filterConfig={filterConfig} />
+    <OverviewFilterHeader bind:filterConfig={filterConfig} />
 
     <TabBar
         tabNames={["Feed", "Homework", "All Marks", "Timetable", "[Placeholder]"]}
         on:tabSelected={onTabSelected}
     />
 
-    <FilterBody bind:filterConfig={filterConfig} />
+    <OverviewFilterBody bind:filterConfig={filterConfig} />
 
     {#if currentTab === 0 }
 
