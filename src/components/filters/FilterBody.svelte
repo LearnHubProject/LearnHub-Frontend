@@ -8,8 +8,6 @@
 
     let subjectCategoryState: Map<string, boolean> = new Map<string, boolean>();
 
-    // $: console.log("BODY: ", filterConfig);
-
     // The argument is needed to make the result of the function explicidly dependent on the value of filterConfig
     // Alternatively, a {#key} block can be used around the loop calling this function
     function generateSubjectGroups(config: FilterConfig): Map<string, Subject[]> {
@@ -26,26 +24,17 @@
             m.get(parsedSubject.category)!.push(parsedSubject);
         });
         
-        console.log(m);
-        
         return m;
     }
 
-    function mutate() {
-        const s = {
-            category: "GAC",
-            title: 'Chemistry'
-        };
-        const ss = JSON.stringify(s);
-        const pval = filterConfig.subjects.selection.get(ss);
-        filterConfig.subjects.selection.set(ss, !pval);
+    function toggleSubject(entry: Subject, selected: boolean): void {
+        const ss = JSON.stringify(entry);
+        filterConfig.subjects.selection.set(ss, selected);
         filterConfig = filterConfig;
     }
     
-    function toggleSubject(e: CustomEvent) {
-        return;
-        const ss = JSON.stringify(s);
-        filterConfig.subjects.selection.set(ss, !filterConfig.subjects.selection.get(ss));
+    function toggleClass(entry: string, selected: boolean): void {
+        filterConfig.classes.selection.set(entry, selected);
         filterConfig = filterConfig;
     }
 
@@ -62,7 +51,7 @@
 
     {#if filterConfig.subjects.show}
 
-        {#if true} <!-- role='student' -->
+        {#if false} <!-- role='student' -->
 
             {#each generateSubjectGroups(filterConfig) as [category, subjects]}
 
@@ -71,14 +60,20 @@
                     entries={subjects}
                     entryLabel={(e) => e.title}
                     entryDefaultState={(e) => filterConfig.subjects.selection.get(JSON.stringify(e)) ?? false}
-                    on:toggle={toggleSubject}
+                    on:toggle={(e) => toggleSubject(e.detail.entry, e.detail.selected)}
                 />
         
             {/each}
 
-        {:else if false}
+        {:else if true} <!-- role='teacher' -->
 
-            <!--  -->
+            <FilterCategory
+                title={"Subjects"}
+                entries={Array(...filterConfig.subjects.selection.keys())}
+                entryLabel={(e) => JSON.parse(e).title}
+                entryDefaultState={(e) => filterConfig.subjects.selection.get(e) ?? false}
+                on:toggle={(e) => toggleSubject(JSON.parse(e.detail.entry), e.detail.selected)}
+            />
 
         {/if}
 
@@ -86,7 +81,12 @@
 
     {#if filterConfig.classes.show}
 
-        <!--  -->
+        <FilterCategory
+            title={"Classes"}
+            entries={Array(...filterConfig.classes.selection.keys())}
+            entryDefaultState={(e) => filterConfig.classes.selection.get(e) ?? false}
+            on:toggle={(e) => toggleClass(e.detail.entry, e.detail.selected)}
+        />
 
     {/if}
 

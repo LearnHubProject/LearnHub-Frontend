@@ -23,10 +23,12 @@
         const fc = await getInitialFilterConfig(""); // TODO: real token
         if (fc == undefined) return;
 
+        fc.classes.selection.set("11ED", true);
+
         filterConfig = fc;
     });
 
-    // $: console.warn(filterConfig);
+    $: console.log(filterConfig);
 
 </script>
 
