@@ -1,7 +1,8 @@
-import { USER_ROLES, type UserRole } from "../App.svelte";
+import { USER_ROLES, type UserRole } from "$script/user";
 import type { Token } from "./token";
 import type { Subject } from "./subject"
 
+// Makes the API calls return predetermined data instead of making a request to the server.
 const DEV_MODE = true;
 
 // "Borrowed" from: https://stackoverflow.com/questions/46155/how-can-i-validate-an-email-address-in-javascript 

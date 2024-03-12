@@ -1,6 +1,7 @@
 <script lang="ts">
     
     import { onMount } from "svelte";
+    import { user } from "$script/user"
     import OverviewTemplate from "$comp/OverviewTemplate.svelte"
     import TabBar from "$comp/TabBar.svelte";
     import OverviewFilterHeader, { type FilterConfig, defaultFilterConfig, getInitialFilterConfig } from "$comp/overview_filters/OverviewFilterHeader.svelte";
@@ -17,13 +18,17 @@
     }
 
     onMount(async () => {
+        if (user.token === undefined) {
+            console.error("Student's overview panel mounted before the user acquired a token");
+            return;
+        }
         const fc = await getInitialFilterConfig(""); // TODO: real token
         if (fc == undefined) return;
 
         filterConfig = fc;
     });
 
-    $: console.log(filterConfig);
+    // $: console.log(filterConfig);
     
 </script>
 

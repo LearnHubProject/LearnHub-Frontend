@@ -1,19 +1,7 @@
-<script lang="ts" context="module">
-
-    export const USER_ROLES = [
-        'student',
-        'parent',
-        'teacher',
-        'admin'
-    ] as const;
-
-    export type UserRole = (typeof USER_ROLES)[number];
-
-</script>
-
 <script lang="ts">
     
     import { routeApp } from "./routes/router";
+    import { user } from "$script/user"
     import Login from "./routes/login/Login.svelte";
     import About from "./routes/about/About.svelte";
     import Privacy from "./routes/privacy/Privacy.svelte";
@@ -24,8 +12,6 @@
     import AdminOverview from "./routes/admin/overview/AdminOverview.svelte"
 
     const route = routeApp();
-    let role: UserRole = 'teacher';
-    let token;
 
 </script>
 
@@ -47,15 +33,15 @@
 
 {:else if route === '/overview'}
 
-    {#if role === 'student'}
+    {#if user.role === 'student'}
 
         <StudentOverview />
 
-    {:else if role === 'parent'}
+    {:else if user.role === 'parent'}
 
         <ParentOverview />
 
-    {:else if role === 'teacher'}
+    {:else if user.role === 'teacher'}
 
         <TeacherOverview />
 
