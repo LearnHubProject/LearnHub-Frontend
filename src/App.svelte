@@ -13,6 +13,13 @@
 
     const route = routeApp();
 
+    function handleUndefinedRole(): void {
+        console.error(`Undefined role: \"${user.role}\", resetting the session.`);
+        user.role = undefined;
+        user.token = undefined;
+        location.href = "/";
+    }
+
 </script>
 
 {#if route === '/'}
@@ -45,9 +52,13 @@
 
         <TeacherOverview />
 
-    {:else} <!-- === 'admin' is redundant -->
+    {:else if user.role === 'admin'}
 
         <AdminOverview />
+
+    {:else}
+
+        <div on:load={handleUndefinedRole}></div>
 
     {/if}
 

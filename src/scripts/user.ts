@@ -10,13 +10,12 @@ export const USER_ROLES = [
 export type UserRole = (typeof USER_ROLES)[number];
 
 export interface User {
-    role: UserRole;
+    role?: UserRole;
     token?: Token;
 }
 
-export let user: User = {
-    role: 'teacher',
-    token: undefined
-};
+export let user: User = { };
 
-user.token = ""; // CAUTION! For testing purposes only!
+// CAUTION! For testing purposes only!
+user.role = 'teacher';
+user.token = "";
