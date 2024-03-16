@@ -26,7 +26,7 @@
 
     <TestReminder
         subjectTitle="Mathematics"
-        content="eee"
+        content="Test on integrals"
         details={[
             { label: "Details", icon: "./icons/details.svg" },
         ]}

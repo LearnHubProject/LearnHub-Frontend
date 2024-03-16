@@ -17,5 +17,5 @@ export interface User {
 export let user: User = { };
 
 // CAUTION! For testing purposes only!
-user.role = 'teacher';
+user.role = 'student';
 user.token = "";

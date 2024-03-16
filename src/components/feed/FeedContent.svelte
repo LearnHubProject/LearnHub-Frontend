@@ -22,7 +22,7 @@
     
     <MarkNotification
         title="Example"
-        content="Just testin' stuff out"
+        content="Test description"
         important={false}
         details={[
             { label: "Details", icon: "./icons/details.svg" },
@@ -34,7 +34,7 @@
     
     <MarkNotification
         title="Example"
-        content="Just testin' stuff out"
+        content="Test description"
         important={true}
         details={[
             { label: "Details", icon: "./icons/details.svg" },

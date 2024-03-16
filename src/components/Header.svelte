@@ -28,8 +28,7 @@
             <img src="./icons/exit.svg" alt="">
         </button>
 
-        <p>Sussus Amongus</p>
-
+        <p>Firstname Lastname</p>
 
     </div>
 

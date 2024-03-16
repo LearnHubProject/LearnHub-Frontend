@@ -1,5 +1,6 @@
 <script lang="ts">
     
+    import { user } from "$script/user"
     import type { Subject } from "$script/subject";
     import type { FilterConfig } from "./OverviewFilterHeader.svelte";
     import OverviewFilterCategory from "./OverviewFilterCategory.svelte"
@@ -51,7 +52,7 @@
 
     {#if filterConfig.subjects.show}
 
-        {#if false} <!-- role='student' -->
+        {#if user.role === 'student'}
 
             {#each generateSubjectGroups(filterConfig) as [category, subjects]}
 
@@ -65,7 +66,7 @@
         
             {/each}
 
-        {:else if true} <!-- role='teacher' -->
+        {:else if user.role === 'teacher'}
 
             <OverviewFilterCategory
                 title={"Subjects"}
