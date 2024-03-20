@@ -7,6 +7,7 @@
     import OverviewFilterHeader, { type FilterConfig, defaultFilterConfig, getInitialFilterConfig } from "$comp/overview_filters/OverviewFilterHeader.svelte";
     import OverviewFilterBody from "$comp/overview_filters/OverviewFilterBody.svelte";
     import FeedContent from "$comp/feed/FeedContent.svelte";
+    import JournalsContent from "./journals/JournalsContent.svelte";
 
     let filterConfig: FilterConfig = defaultFilterConfig();
     let currentTab: number = 0;
@@ -54,7 +55,7 @@
 
     {:else if currentTab === 1}
 
-        <!-- Journals -->
+        <JournalsContent />
         
     {:else if currentTab === 2}
 

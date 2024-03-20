@@ -6,7 +6,7 @@
 
 </script>
 
-<main class="shadow">
+<main class="shadow tab-content">
 
     <!-- TODO: actually fetch the data -->
 
@@ -43,17 +43,3 @@
     />
 
 </main>
-
-<style>
-
-    main {
-        display: flex;
-        flex-direction: column;
-        justify-content: stretch;
-        width: 1068px;
-        padding: 10px 0 10px 0;
-        margin-bottom: 1em;
-        border-radius: 14px;
-    }
-
-</style>
