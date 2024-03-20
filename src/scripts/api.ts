@@ -1,6 +1,7 @@
 import { USER_ROLES, type UserRole } from "$script/user";
 import type { Token } from "./token";
 import type { Subject } from "./subject"
+import type { JournalCardProps } from "src/routes/teacher/overview/journals/JournalCard.svelte";
 
 // Makes the API calls return predetermined data instead of making a request to the server.
 const DEV_MODE = true;
@@ -30,7 +31,7 @@ async function serverRequest(url: string, method: 'GET' | 'POST', data: object):
             err = e;
         });
     
-    return { successful: err == undefined, data: resp, error: err };
+    return { successful: err === undefined, data: resp, error: err };
 }
 
 // ======================================================
@@ -118,6 +119,8 @@ export async function fetchAllSubjects(token: Token, ignoreCache: boolean = fals
 
 // ======================================================
 
+// TODO: remove, the same data can be acquired via fetchJournals
+
 type ClassesFetchResponse = ServerResponse<{
     classes: string[]
 }>
@@ -142,4 +145,56 @@ export async function fetchClassesTaught(token: Token, ignoreCache: boolean): Pr
     classesTaughtCache = resp.data.classes;
 
     return { successful: true, data: { classes: classesTaughtCache } };
+}
+
+// ======================================================
+
+type JournalsFetchResponse = ServerResponse<{
+    journals: JournalCardProps[]
+}>
+
+let journalsCache: JournalCardProps[];
+
+export async function fetchJournals(token: Token, ignoreCache: boolean = false): Promise<JournalsFetchResponse> {
+    if (!ignoreCache && classesTaughtCache !== undefined) return { successful: true, data: { journals: journalsCache } };
+
+    if (DEV_MODE) {
+        journalsCache = [
+            {
+                title: "Chemistry",
+                course: "1. course",
+                className: "11ED",
+                journalID: ""
+            },
+            {
+                title: "Mathematics",
+                course: "7. course",
+                className: "12ALG",
+                journalID: ""
+            },
+            {
+                title: "History",
+                course: "1. course",
+                className: "9G",
+                journalID: ""
+            },
+            {
+                title: "English",
+                course: "1. course",
+                className: "8V",
+                journalID: ""
+            }
+        ];
+        return { successful: true, data: { journals: journalsCache } };
+    }
+
+    const resp = await serverRequest("/api/journals", 'GET', { token });
+    
+    if (!resp.successful) {
+        return resp;
+    }
+
+    journalsCache = resp.data.journals;
+
+    return { successful: true, data: { journals: journalsCache } };
 }

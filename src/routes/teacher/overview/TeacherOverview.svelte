@@ -23,7 +23,7 @@
 
     onMount(async () => {
         if (user.token === undefined) {
-            console.error("Teacher's overview panel mounted before the user acquired a token");
+            console.error("Teacher's overview panel mounted before the user acquired a token.");
             return;
         }
         const fc = await getInitialFilterConfig(user.token);
@@ -55,7 +55,7 @@
 
     {:else if currentTab === 1}
 
-        <JournalsContent />
+        <JournalsContent {filterConfig} />
         
     {:else if currentTab === 2}
 

@@ -2,35 +2,26 @@
     
     import { onMount } from "svelte";
     import JournalCard, { type JournalCardProps } from "./JournalCard.svelte";
+    import { type FilterConfig } from "$comp/overview_filters/OverviewFilterHeader.svelte";
+    import { fetchJournals } from "$script/api";
+    import { user } from "$script/user";
     
+    export let filterConfig: FilterConfig;
+
     let journals: JournalCardProps[];
     
     onMount(async () => {
-        // TODO: fetch the classes
+        if (user.token === undefined) {
+            console.error("Tried fetching journals before the user acquired a token.");
+            return;
+        }
+        const resp = await fetchJournals(user.token);
+        if (!resp.successful) {
+            console.error(resp.error);
+            return;
+        }
         
-        // return;
-        journals = [
-            {
-                title: "Chemistry",
-                course: "1. course",
-                className: "11ED"
-            },
-            {
-                title: "Mathematics",
-                course: "7. course",
-                className: "12ALG"
-            },
-            {
-                title: "History",
-                course: "1. course",
-                className: "9G"
-            },
-            {
-                title: "English",
-                course: "1. course",
-                className: "8V"
-            },
-        ];
+        journals = resp.data!.journals;
     });
 
 </script>

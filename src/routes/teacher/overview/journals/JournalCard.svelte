@@ -3,20 +3,25 @@
     export interface JournalCardProps {
         title: string,
         course: string,
-        className: string
+        className: string,
+        journalID: string
     }
 
 </script>
 
 <script lang="ts">
+    
+    import { createEventDispatcher } from "svelte";
 
     export let title: string;
     export let course: string;
     export let className: string;
 
+    let dispatcher = createEventDispatcher();
+
 </script>
 
-<button>
+<button on:click={() => dispatcher('click')}>
 
     <h3>{title}</h3>
     <p>{className}</p>
