@@ -1,10 +1,12 @@
 <script lang="ts" context="module">
 
+    export type JournalID = string;
+    
     export interface JournalCardProps {
         title: string,
         course: string,
         className: string,
-        journalID: string
+        journalID: JournalID
     }
 
 </script>
@@ -16,12 +18,13 @@
     export let title: string;
     export let course: string;
     export let className: string;
+    export let journalID: JournalID;
 
     let dispatcher = createEventDispatcher();
 
 </script>
 
-<button on:click={() => dispatcher('click')}>
+<button on:click={() => dispatcher('open', { id: journalID })}>
 
     <h3>{title}</h3>
     <p>{className}</p>

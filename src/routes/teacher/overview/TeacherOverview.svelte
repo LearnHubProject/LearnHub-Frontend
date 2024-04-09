@@ -2,15 +2,18 @@
 
     import { onMount } from "svelte";
     import { user } from "$script/user"
+    import type { JournalID } from "./journals/JournalCard.svelte";
     import OverviewTemplate from "$comp/OverviewTemplate.svelte";
     import TabBar from "$comp/TabBar.svelte";
     import OverviewFilterHeader, { type FilterConfig, defaultFilterConfig, getInitialFilterConfig } from "$comp/overview_filters/OverviewFilterHeader.svelte";
     import OverviewFilterBody from "$comp/overview_filters/OverviewFilterBody.svelte";
     import FeedContent from "$comp/feed/FeedContent.svelte";
     import JournalsContent from "./journals/JournalsContent.svelte";
+    import JournalEditor from "./journals/JournalEditor.svelte";
 
     let filterConfig: FilterConfig = defaultFilterConfig();
     let currentTab: number = 0;
+    let currentJournalID: JournalID | undefined = undefined;
 
     function onTabSelected(e: CustomEvent<{ index: number }>): void {
         currentTab = e.detail.index;
@@ -40,38 +43,50 @@
 
 <OverviewTemplate>
 
-    <OverviewFilterHeader bind:filterConfig={filterConfig} />
+    {#if currentJournalID === undefined}
 
-    <TabBar
-        tabNames={["Feed", "Journals", "My Classes", "[Placeholder]", "[Placeholder]"]}
-        on:tabSelected={onTabSelected}
-    />
+        <!-- Render overview -->
 
-    <OverviewFilterBody bind:filterConfig={filterConfig} />
+        <OverviewFilterHeader bind:filterConfig={filterConfig} />
 
-    {#if currentTab === 0 }
+        <TabBar
+            tabNames={["Feed", "Journals", "My Classes", "[Placeholder]", "[Placeholder]"]}
+            on:tabSelected={onTabSelected}
+        />
 
-        <FeedContent />
+        <OverviewFilterBody bind:filterConfig={filterConfig} />
 
-    {:else if currentTab === 1}
+        {#if currentTab === 0 }
 
-        <JournalsContent {filterConfig} />
+            <FeedContent />
+
+        {:else if currentTab === 1}
+
+            <JournalsContent {filterConfig} on:openjournal={(e) => currentJournalID = e.detail.id} />
         
-    {:else if currentTab === 2}
+        {:else if currentTab === 2}
 
-        <!-- TODO: "My Classes" content -->
+            <!-- TODO: "My Classes" content -->
 
-    {:else if currentTab === 3}
+        {:else if currentTab === 3}
 
-        <!-- Placeholder -->
+            <!-- Placeholder -->
 
-    {:else if currentTab === 4}
+        {:else if currentTab === 4}
 
-        <!-- Placeholder -->
+            <!-- Placeholder -->
+
+        {:else}
+
+            <div style="color: red;">Error</div>
+
+        {/if}
 
     {:else}
 
-        <div style="color: red;">Error</div>
+        <!-- Render specific journal -->
+
+        <JournalEditor id={currentJournalID} />
 
     {/if}
 

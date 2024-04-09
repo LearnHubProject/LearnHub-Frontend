@@ -19,12 +19,15 @@
 <style>
 
     .content {
+        --margin: 249px;
+        --overview-template-width: calc(100vw - 2 * var(--margin));
+
         display: grid;
         grid-template-columns: max-content max-content;
         grid-template-rows: max-content max-content;
         row-gap: 15px;
         column-gap: 20px;
-        margin: 0 249px 0 249px;
+        margin: 0 var(--margin) 0 var(--margin);
     }
 
 </style>
