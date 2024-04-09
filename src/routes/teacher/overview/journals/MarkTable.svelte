@@ -64,7 +64,9 @@
                 {#each dates as date}
 
                     <td class="mark-cell">
-                        {marks?.get(date) ?? ""}
+                        <div>
+                            {marks?.get(date) ?? ""}
+                        </div>
                     </td>
 
                 {/each}
@@ -103,6 +105,31 @@
         cursor: pointer;
     }
 
+    td:not([rowspan="0"]) > div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+
+        border-width: 0;
+        border-style: solid none none solid;
+        border-color: var(--cl-accent);
+        box-sizing: border-box;
+
+        transition:
+            border-left-width 0.075s ease,
+            border-top-width 0.075s ease;
+    }
+
+    td:not([rowspan="0"]):hover > div {
+        border-left-width: 2px;
+        border-top-width: 2px;
+  
+        border-bottom-width: 1px;
+        border-right-width: 1px;
+    }
+
     .tint {
         background-color: var(--tint);
     }
@@ -126,16 +153,6 @@
         width: 42px;
         color: var(--cl-low-emphasis);
     }
-    
-    td[rowspan="0"] > div {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    td[rowspan="0"] > div > .divider-month-label {
-        writing-mode: sideways-lr;
-    }
 
     td[rowspan="0"]::before {
         content: '';
@@ -157,6 +174,16 @@
         width: 1px;
         height: calc(100% - var(--top) - var(--cell-height));
         background-color: var(--cl-divider);
+    }
+    
+    td[rowspan="0"] > div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    td[rowspan="0"] > div > .divider-month-label {
+        writing-mode: sideways-lr;
     }
 
 </style>
