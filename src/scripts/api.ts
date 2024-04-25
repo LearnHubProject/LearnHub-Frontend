@@ -4,7 +4,7 @@ import type { Subject } from "./subject"
 import type { JournalCardProps } from "src/routes/teacher/overview/journals/JournalCard.svelte";
 
 // Makes the API calls return predetermined data instead of making a request to the server.
-const DEV_MODE = true;
+const DEV_MODE = false;
 
 // "Borrowed" from: https://stackoverflow.com/questions/46155/how-can-i-validate-an-email-address-in-javascript 
 const EMAIL_REGEX = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
@@ -88,7 +88,7 @@ let subjectsCache: Subject[];
 export async function fetchAllSubjects(token: Token, ignoreCache: boolean = false): Promise<SubjectFetchResponse> {
     if (!ignoreCache && subjectsCache !== undefined) return { successful: true, data: { subjects: subjectsCache } };
     
-    if (DEV_MODE) {
+    if (DEV_MODE || true) {
         subjectsCache = [
             {
                 category: "GAC",
@@ -130,7 +130,7 @@ let classesTaughtCache: string[];
 export async function fetchClassesTaught(token: Token, ignoreCache: boolean): Promise<ClassesFetchResponse> {
     if (!ignoreCache && classesTaughtCache !== undefined) return { successful: true, data: { classes: classesTaughtCache } };
     
-    if (DEV_MODE) {
+    if (DEV_MODE || true) {
         classesTaughtCache = [
             "11ED"
         ];
@@ -158,7 +158,7 @@ let journalsCache: JournalCardProps[];
 export async function fetchJournals(token: Token, ignoreCache: boolean = false): Promise<JournalsFetchResponse> {
     if (!ignoreCache && classesTaughtCache !== undefined) return { successful: true, data: { journals: journalsCache } };
 
-    if (DEV_MODE) {
+    if (DEV_MODE || true) {
         journalsCache = [
             {
                 title: "Chemistry",

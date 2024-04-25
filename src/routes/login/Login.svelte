@@ -4,19 +4,22 @@
     import Footer from "$comp/Footer.svelte";
     import Blobs from "$comp/Blobs.svelte";
     import TextInput from "./TextInput.svelte";
+    import { user } from "$script/user";
 
     let email: string;
     let password: string;
 
     async function login(): Promise<void> {
         // TODO: log in
-        let resp = await loginRequest(email, password);
+        const resp = await loginRequest(email, password);
         if (!resp.successful) {
             console.error(resp.error);
-            // Also reflect with the UI
+            // Also show in the UI
             return;
         }
 
+        user.token = resp.data!.token;
+        user.role = resp.data!.role;
         // Assign the token and the role of the user
 
         location.href = '/overview';
